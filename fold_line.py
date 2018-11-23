@@ -5,14 +5,18 @@ with open('fold_input.txt') as fh:
         number_of_dots = len(line) - len(line.lstrip("."))
         block.append({"number_of_dots":number_of_dots,"line": line.lstrip(".")})
 
-signs = {True: "+", False: "-"}
+signs = {True: "+", False: "-", "Blank": ""}
 block[-1]["switch"] = False
 prev_flag_switch = False
 prev_number_of_dots = block[-1]["number_of_dots"]
 
 for line in block[-2::-1]:
-    # print(line)
-    if line["number_of_dots"] < prev_number_of_dots and prev_flag_switch is False :
+    print(line)
+    if line["number_of_dots"] == 0:
+        line["number_of_dots"] = prev_number_of_dots + 1
+        line["switch"] = "Blank"
+        continue
+    elif line["number_of_dots"] < prev_number_of_dots and prev_flag_switch is False :
         line["switch"] = True
         print(1)
     elif line["number_of_dots"] == prev_number_of_dots and prev_flag_switch is False:
@@ -24,9 +28,12 @@ for line in block[-2::-1]:
     elif line["number_of_dots"] < prev_number_of_dots and prev_flag_switch is True:
         line["switch"] = True
         print(4)
+
     prev_number_of_dots = line["number_of_dots"]
     prev_flag_switch = line["switch"]
 
 for line in block:
-    print(line)
+    print("{}{}{}".format(line['number_of_dots'] * " ",
+                          signs[line['switch']],
+                          line['line']), end="")
 
