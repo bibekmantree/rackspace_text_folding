@@ -13,6 +13,7 @@ def get_number(numeric_bullet, number_of_astr):
 
 
 def fold_print(block):
+    """Prints indention folding style"""
     signs = {True: "+", False: "-", "Blank": ""}
     block[-1]["switch"] = False
     prev_flag_switch = False
@@ -40,12 +41,12 @@ def fold_print(block):
 
 
 def chunk_print(chunk, numeric_bullet):
+    """Decorate and print text chunks , based on *"""
     block = []
-    line = chunk[0]
-    number_of_astr = len(line) - len(line.lstrip("*"))
-    numeric_bullet = get_number(numeric_bullet, number_of_astr)
-    print(".".join([str(i) for i in numeric_bullet]), line.strip("*"), end="")
-
+    bullet_line = chunk[0]
+    number_of_astric = len(bullet_line) - len(bullet_line.lstrip("*"))
+    numeric_bullet = get_number(numeric_bullet, number_of_astric)
+    print(".".join([str(i) for i in numeric_bullet]), bullet_line.strip("*"), end="")
     for line in chunk[1:]:
         number_of_dots = len(line) - len(line.lstrip("."))
         block.append({"number_of_dots": number_of_dots, "line": line.lstrip(".")})
